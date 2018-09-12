@@ -48,8 +48,12 @@ class APNSNotification extends Component
     {
         parent::init();
 
-        if (!$this->appleCertPath) {
+        if (empty($this->appleCertPath)) {
             throw new InvalidConfigException('Param "appleCertPath" is required');
+        }
+
+        if (!is_string($this->appleCertPath) || !file_exists($this->appleCertPath)) {
+            throw new InvalidConfigException('Param "$appleCertPath" must be a valid string path to file');
         }
 
         $this->appleCertPath = realpath(Yii::getAlias($this->appleCertPath));
@@ -74,7 +78,7 @@ class APNSNotification extends Component
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function send($token, $payload)
+    public function send($token, array $payload)
     {
         return $this->apns->send($token, $payload);
     }
