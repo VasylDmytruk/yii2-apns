@@ -87,7 +87,7 @@ Also if you want to send push notification only on dev url, you can do so by set
 ],
 ```
 
-You have to install curl with http2 support:
+####You have to install curl with http2 support:
 
 ```
 cd ~
