@@ -53,7 +53,7 @@ In your application config add:
 
 `AppleNotificationServer` sends push notification first on `$apiUrl` (https://api.push.apple.com/3/device)
 if not success (not status code `200`), then sends on `$apiUrlDev` (https://api.development.push.apple.com/3/device).
-If you don't want to send push notification on $apiUrlDev` set it value to `false`:
+If you don't want to send push notification on $apiUrlDev set it value to `false`:
 
 ```php
 // ...
