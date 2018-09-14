@@ -79,7 +79,7 @@ Also if you want to send push notification only on dev url, you can do so by set
         'apnsNotification' => [
             'class' => \autoxloo\yii2\apns\APNSNotification::class,
             'appleCertPath' => __DIR__ . '/wxv_cert.pem',
-            'apiUrl' => 'https://api.development.push.apple.com/3/device',                  // default
+            'apiUrl' => 'https://api.development.push.apple.com/3/device',
             'apiUrlDev' => false,
             'apnsPort' => 443,                                                  // default
             'pushTimeOut' => 10,                                                // default
