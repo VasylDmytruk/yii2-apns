@@ -51,7 +51,44 @@ In your application config add:
 ],
 ```
 
+`AppleNotificationServer` sends push notification first on `$apiUrl` (https://api.push.apple.com/3/device)
+if not success (not status code `200`), then sends on `$apiUrlDev` (https://api.development.push.apple.com/3/device).
+If you don't want to send push notification on $apiUrlDev set it value to `false`:
+
+```php
+// ...
+'components' => [
+        // ...
+        'apnsNotification' => [
+            'class' => \autoxloo\yii2\apns\APNSNotification::class,
+            'appleCertPath' => __DIR__ . '/wxv_cert.pem',
+            'apiUrl' => 'https://api.push.apple.com/3/device',                  // default
+            'apiUrlDev' => false,
+            'apnsPort' => 443,                                                  // default
+            'pushTimeOut' => 10,                                                // default
+        ],
+],
+```
+
+Also if you want to send push notification only on dev url, you can do so by setting `apiUrl` with dev url:
+
+```php
+// ...
+'components' => [
+        // ...
+        'apnsNotification' => [
+            'class' => \autoxloo\yii2\apns\APNSNotification::class,
+            'appleCertPath' => __DIR__ . '/wxv_cert.pem',
+            'apiUrl' => 'https://api.development.push.apple.com/3/device',
+            'apiUrlDev' => false,
+            'apnsPort' => 443,                                                  // default
+            'pushTimeOut' => 10,                                                // default
+        ],
+],
+```
+
 You have to install curl with http2 support:
+--------------------------------------------
 
 ```
 cd ~
