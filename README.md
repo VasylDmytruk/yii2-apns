@@ -122,4 +122,19 @@ $payload = [
 $response = \Yii::$app->apnsNotification->send($token, $payload);
 ```
 
+or if you want to send to many tokens:
+
+```php
+$tokens = [
+    'some device token',
+    'some other device token',
+];
+$payload = [
+    'some key1' => 'some value1',
+    'some key2' => 'some value2',
+];
+
+$response = \Yii::$app->apnsNotification->sendToMany($tokens, $payload);
+```
+
 See [autoxloo/apns](https://github.com/VasylDmytruk/apns) for more details.
