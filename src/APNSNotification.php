@@ -68,6 +68,19 @@ class APNSNotification extends Component
     }
 
     /**
+     * Sends notification to many recipients (`$tokens`).
+     *
+     * @param array $tokens List of tokens of devices to send push notification on.
+     * @param array $payload APNS payload data (will be json encoded).
+     *
+     * @return array List of status codes with response messages.
+     */
+    public function sendToMany(array $tokens, array $payload)
+    {
+        return $this->apns->sendToMany($tokens, $payload);
+    }
+
+    /**
      * Sends notification to recipient (`$token`).
      *
      * @param string $token Token of device to send push notification on.
