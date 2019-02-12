@@ -10,6 +10,8 @@ use yii\base\InvalidConfigException;
 /**
  * Class APNSNotification Yii2 wrap of [[autoxloo\apns\AppleNotificationServer]].
  * @see AppleNotificationServer
+ *
+ * @property string $topic
  */
 class APNSNotification extends Component
 {
@@ -33,6 +35,11 @@ class APNSNotification extends Component
      * @var int Push timeout.
      */
     public $pushTimeOut = 10;
+    /**
+     * @var string|null 'apns-topic' header
+     * @see https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html
+     */
+    private $topic = null;
 
     /**
      * @var AppleNotificationServer
@@ -63,7 +70,8 @@ class APNSNotification extends Component
             $this->apiUrl,
             $this->apiUrlDev,
             $this->apnsPort,
-            $this->pushTimeOut
+            $this->pushTimeOut,
+            $this->topic
         );
     }
 
@@ -94,5 +102,25 @@ class APNSNotification extends Component
     public function send($token, array $payload)
     {
         return $this->apns->send($token, $payload);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTopic()
+    {
+        return $this->topic;
+    }
+
+    /**
+     * @param null|string $topic
+     */
+    public function setTopic($topic)
+    {
+        $this->topic = $topic;
+
+        if ($this->apns) {
+            $this->apns->setTopic($topic);
+        }
     }
 }
