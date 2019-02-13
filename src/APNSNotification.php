@@ -26,7 +26,7 @@ class APNSNotification extends Component
     /**
      * @var string Path to apple .pem certificate.
      */
-    public $appleCertPath;
+    private $appleCertPath;
     /**
      * @var int APNS posrt.
      */
@@ -121,6 +121,26 @@ class APNSNotification extends Component
 
         if ($this->apns) {
             $this->apns->setTopic($topic);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppleCertPath()
+    {
+        return $this->appleCertPath;
+    }
+
+    /**
+     * @param string $appleCertPath
+     */
+    public function setAppleCertPath($appleCertPath)
+    {
+        $this->appleCertPath = $appleCertPath;
+
+        if ($this->apns) {
+            $this->apns->setAppleCertPath($appleCertPath);
         }
     }
 }
