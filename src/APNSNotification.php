@@ -28,6 +28,10 @@ class APNSNotification extends Component
      */
     private $appleCertPath;
     /**
+     * @var string Path to apple .pem certificate in case to call method [[APNSNotification::resetAppleCertPath()]].
+     */
+    private $oldAppleCertPath;
+    /**
      * @var int APNS posrt.
      */
     public $apnsPort = 443;
@@ -64,6 +68,7 @@ class APNSNotification extends Component
         }
 
         $this->appleCertPath = realpath(Yii::getAlias($this->appleCertPath));
+        $this->oldAppleCertPath = $this->appleCertPath;
 
         $this->apns = new AppleNotificationServer(
             $this->appleCertPath,
@@ -141,6 +146,18 @@ class APNSNotification extends Component
 
         if ($this->apns) {
             $this->apns->setAppleCertPath($appleCertPath);
+        }
+    }
+
+    /**
+     * Resets apple cert path, sets old path which was set in init().
+     */
+    public function resetAppleCertPath()
+    {
+        $this->appleCertPath = $this->oldAppleCertPath;
+
+        if ($this->apns) {
+            $this->apns->setAppleCertPath($this->oldAppleCertPath);
         }
     }
 }
