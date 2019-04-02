@@ -44,6 +44,10 @@ class APNSNotification extends Component
      * @see https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html
      */
     private $topic = null;
+    /**
+     * @var null|int 'apns-expiration' header
+     */
+    private $expiration = null;
 
     /**
      * @var AppleNotificationServer
@@ -76,7 +80,8 @@ class APNSNotification extends Component
             $this->apiUrlDev,
             $this->apnsPort,
             $this->pushTimeOut,
-            $this->topic
+            $this->topic,
+            $this->expiration
         );
     }
 
@@ -126,6 +131,26 @@ class APNSNotification extends Component
 
         if ($this->apns) {
             $this->apns->setTopic($topic);
+        }
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getExpiration()
+    {
+        return $this->expiration;
+    }
+
+    /**
+     * @param int|null $expiration
+     */
+    public function setExpiration($expiration)
+    {
+        $this->expiration = $expiration;
+
+        if ($this->apns) {
+            $this->apns->setExpiration($expiration);
         }
     }
 
