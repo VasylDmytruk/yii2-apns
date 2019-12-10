@@ -43,11 +43,17 @@ class APNSNotification extends Component
      * @var string|null 'apns-topic' header
      * @see https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html
      */
-    private $topic = null;
+    private $topic;
     /**
      * @var null|int 'apns-expiration' header
+     * @see https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns
      */
-    private $expiration = null;
+    private $expiration;
+    /**
+     * @var null|string 'apns-push-type' header value.
+     * @see https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns
+     */
+    private $pushType;
 
     /**
      * @var AppleNotificationServer
@@ -183,6 +189,18 @@ class APNSNotification extends Component
 
         if ($this->apns) {
             $this->apns->setAppleCertPath($this->oldAppleCertPath);
+        }
+    }
+
+    /**
+     * @param string|null $pushType
+     */
+    public function setPushType($pushType)
+    {
+        $this->pushType = $pushType;
+
+        if ($this->apns) {
+            $this->apns->setPushType($this->pushType);
         }
     }
 }
